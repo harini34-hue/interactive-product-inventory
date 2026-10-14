@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interactive Product Inventory & Analytics Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #17365d;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 0;
+            color: #dbeafe;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px #0000000d;
+        }
+
+        h2 {
+            color: #2563eb;
+            margin-top: 0;
+        }
+
+        .features {
+            line-height: 2;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            background: #0f172a;
+            color: #bbf7d0;
+            padding: 18px;
+            border-radius: 10px;
+            min-height: 80px;
+            font-family: monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📦 Interactive Product Inventory</h1>
+        <p>Product Management & Analytics Dashboard</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>About the Project</h2>
+            <p>
+                This JavaScript mini project manages product inventory,
+                categorizes products by price, calculates total inventory
+                value, filters affordable products, and generates reports.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Project Features</h2>
+            <ul class="features">
+                <li>Add a product using its name and price</li>
+                <li>Classify products as Budget, Standard, or Premium</li>
+                <li>Calculate total inventory value</li>
+                <li>Filter products priced below $200</li>
+                <li>Generate a formatted inventory report</li>
+            </ul>
+
+            <button id="runButton">▶ Run Inventory Analysis</button>
+        </section>
+
+        <section class="card">
+            <h2>Inventory Output</h2>
+            <p id="status">
+                Click "Run Inventory Analysis" to enter a product.
+            </p>
+            <pre id="output">Your inventory report will appear here.</pre>
+        </section>
+    </main>
+
+    <footer>
+        JavaScript Capstone Mini Project
+    </footer>
+
+    <script src="first.js"></script>
+
+</body>
+</html>
