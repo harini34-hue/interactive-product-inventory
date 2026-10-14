@@ -1,81 +1,82 @@
-console.log("--- Initializing Inventory System ---");
-
-// Initial inventory
 const inventory = [
     { name: "Laptop", price: 800 },
     { name: "Mouse", price: 25 }
 ];
 
-// Get input from the user
-const productName = prompt("Enter product name:");
-const priceInput = prompt("Enter product price:");
+const runButton = document.getElementById("runButton");
+const output = document.getElementById("output");
+const status = document.getElementById("status");
 
-// Validate input
-if (
-    productName !== null &&
-    productName.trim() !== "" &&
-    priceInput !== null &&
-    priceInput.trim() !== "" &&
-    Number.isFinite(Number(priceInput)) &&
-    Number(priceInput) > 0
-) {
-    const price = Number(priceInput);
+function getCategory(price) {
+    if (price < 100) return "Budget";
+    if (price <= 500) return "Standard";
+    return "Premium";
+}
 
-    // Add new product
-    inventory.push({
-        name: productName.trim(),
-        price: price
-    });
+runButton.addEventListener("click", function () {
+    const nameInput = prompt("Enter product name:");
+    if (nameInput === null) return;
 
-    console.log(
-        `[Prompt executed: User adds "${productName.trim()}" at "$${price}"]`
-    );
+    const name = nameInput.trim();
 
-    // Determine category
-    function getCategory(price) {
-        if (price < 100) {
-            return "Budget";
-        } else if (price <= 500) {
-            return "Standard";
-        } else {
-            return "Premium";
-        }
+    if (name === "") {
+        alert("Product name cannot be empty.");
+        return;
     }
 
-    // Display inventory
-    console.log("\n--- Processing Inventory Roster (forEach) ---");
+    const priceInput = prompt("Enter product price:");
+    if (priceInput === null) return;
 
-    inventory.forEach(item => {
-        console.log(
-            `* Item: ${item.name} ($${item.price}) -> Category: ${getCategory(item.price)}`
-        );
-    });
+    if (priceInput.trim() === "") {
+        alert("Please enter a valid price.");
+        return;
+    }
 
-    // Calculate total value
-    const totalValue = inventory.reduce(
-        (total, item) => total + item.price,
+    const price = Number(priceInput);
+
+    if (!Number.isFinite(price) || price <= 0) {
+        alert("Price must be a positive number.");
+        return;
+    }
+
+    inventory.push({ name, price });
+
+    const total = inventory.reduce(
+        (sum, item) => sum + item.price,
         0
     );
 
-    // Filter affordable items
-    const affordableItems = inventory.filter(
-        item => item.price < 200
-    );
+    const affordable = inventory
+        .filter(item => item.price < 200)
+        .map(item => item.name);
 
-    // Format report
     const report = inventory.map(
         item => `${item.name.toUpperCase()}: $${item.price}`
     );
 
-    // Display final analytics
-    console.log("\n--- Financial Analytics ---");
-    console.log("Total Inventory Value: $" + totalValue);
-    console.log(
-        "Filtered Affordable Items (Under $200):",
-        affordableItems.map(item => item.name)
-    );
-    console.log("Formatted Report List:", report);
+    const lines = [
+        "--- Initializing Inventory System ---",
+        `[Prompt executed: User adds "${name}" at "$${price}"]`,
+        "",
+        "--- Processing Inventory Roster (forEach) ---"
+    ];
 
-} else {
-    console.log("Invalid input. Please enter a product name and a valid price.");
-}
+    inventory.forEach(item => {
+        lines.push(
+            `* Item: ${item.name} ($${item.price}) -> Category: ${getCategory(item.price)}`
+        );
+    });
+
+    lines.push(
+        "",
+        "--- Financial Analytics ---",
+        `Total Inventory Value: $${total}`,
+        `Filtered Affordable Items (Under $200): ${JSON.stringify(affordable)}`,
+        `Formatted Report List: ${JSON.stringify(report, null, 2)}`
+    );
+
+    output.textContent = lines.join("\n");
+    status.textContent = "Inventory analysis completed successfully!";
+
+    console.log(lines.join("\n"));
+});
